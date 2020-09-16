@@ -1,0 +1,48 @@
+from manimlib.imports import *
+
+class sample(Scene):
+    def construct(self):
+
+        intro_text1 = TextMobject("The following is a sample module made entirely")
+        intro_text2 = TextMobject("with")
+        intro_text3 = TextMobject("Python and Manim", color=RED).scale(2)
+        intro_text1.next_to(intro_text2, UP)
+        intro_text3.next_to(intro_text2, DOWN)
+
+        mod_intro = TextMobject("Class 4: Multiplication")    
+    
+        mod1_intro = TextMobject("First we'll try to relate Multiplication with Addition")
+        mod1 = TextMobject("2 x 3 = 3 + 3")
+        face_holder = TextMobject("3 + 3 = 6").scale(2)
+        face_holder.move_to(UP)
+        circle1 = Circle(fill_color = YELLOW, fill_opacity = 1, color = YELLOW, radius=0.5)
+        circle2 = Circle(fill_color = YELLOW, fill_opacity = 1, color = YELLOW, radius=0.5)
+        circle2.next_to(circle1, DOWN)
+        circle3 = Circle(fill_color = YELLOW, fill_opacity = 1, color = YELLOW, radius=0.5)
+        circle3.next_to(circle2, DOWN)
+        circle_group1 = Mobject.add(circle1, circle2, circle3)
+        circle_group1.next_to(face_holder, DOWN)
+        circle_group2 = circle_group1.copy().next_to(circle_group1, 4*LEFT)
+        circle_group3 = circle_group2.copy().next_to(circle_group1, 4*RIGHT)
+        circle_group4 = circle_group2.copy().next_to(circle_group3, RIGHT)
+
+        self.play(Write(intro_text1))
+        self.play(Write(intro_text2))
+        self.play(Write(intro_text3))
+        self.wait(2)
+        self.play(Uncreate(intro_text1), Uncreate(intro_text2), Uncreate(intro_text3))
+        self.wait(1)
+        self.play(Write(mod_intro))
+        self.wait(2)
+        self.play(ReplacementTransform(mod_intro, mod1_intro))
+        self.wait(2)   
+        self.play(Transform(mod1_intro, mod1))
+        self.wait(1)
+        self.play(ReplacementTransform(mod1_intro, mod1.to_edge(UP)))
+        self.wait(1)
+        self.play(ShowCreation(face_holder))
+        self.wait(1)
+        self.play(FadeIn(circle_group1), FadeIn(circle_group2))
+        self.wait(2)
+        self.play(Transform(circle_group1, circle_group3), Transform(circle_group2, circle_group4), run_time=2)
+        self.wait(2)
