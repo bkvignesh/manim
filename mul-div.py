@@ -1,5 +1,8 @@
 from manimlib.imports import *
 
+# class final(Scene):
+#     def construct(self):
+
 class intro(Scene):
     def construct(self):
 
@@ -61,7 +64,7 @@ class mod12(Scene):
         mod12 = TextMobject("3 x 6 = 6 + 6 + 6 = 18")
         mod12_edge = mod12.to_edge(UP)
         face_holder12 = TextMobject("6 + 6 + 6 = 18").scale(2)
-        face_holder12.move_to(UP)
+        face_holder12.move_to(1.5*UP)
         circle21 = Circle(fill_color = ORANGE, fill_opacity = 1, color = ORANGE, radius=0.25)
         circle22 = Circle(fill_color = ORANGE, fill_opacity = 1, color = ORANGE, radius=0.25).next_to(circle21, DOWN)
         circle23 = Circle(fill_color = ORANGE, fill_opacity = 1, color = ORANGE, radius=0.25).next_to(circle22, DOWN)
@@ -86,4 +89,6 @@ class mod12(Scene):
         self.play(ShowCreation(circle_group21), ShowCreation(circle_group22), ShowCreation(circle_group23))
         self.wait(2)
         self.play(Transform(circle_group23, circle_group24), Transform(circle_group22, circle_group25), Transform(circle_group21, circle_group26))
+        self.wait(2)
+        self.play(Uncreate(circle_group23), Uncreate(circle_group22), Uncreate(circle_group21), FadeOut(face_holder12), FadeOut(mod12_edge))
         self.wait(2)
