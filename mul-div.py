@@ -58,6 +58,7 @@ class mod11(Scene):
         self.wait(2)
 
 class mod12(Scene):
+
     def construct(self):    
 
         mod12_intro = TextMobject("Another Example").scale(1.5)
@@ -91,4 +92,16 @@ class mod12(Scene):
         self.play(Transform(circle_group23, circle_group24), Transform(circle_group22, circle_group25), Transform(circle_group21, circle_group26))
         self.wait(2)
         self.play(Uncreate(circle_group23), Uncreate(circle_group22), Uncreate(circle_group21), FadeOut(face_holder12), FadeOut(mod12_edge))
+        self.wait(2)
+
+class mod21(Scene):
+
+    def construct(self):        
+
+        mod21_intro1 = TextMobject("Let us try to visualize the associative property of")
+        mod21_intro2 = TextMobject("Multiplication")
+        mod21_intro1.next_to(mod21_intro2, UP)
+
+        self.play(Write(mod21_intro1), run_time=1)
+        self.play(Write(mod21_intro2))
         self.wait(2)
