@@ -1,10 +1,10 @@
 from manimlib.imports import *
 
-# class final(Scene):
-#     def construct(self):
-
-class intro(Scene):
+class final(Scene):
     def construct(self):
+
+# class intro(Scene):
+#     def construct(self):
 
         intro_text1 = TextMobject("The following is a sample module made entirely")
         intro_text2 = TextMobject("with")
@@ -19,8 +19,8 @@ class intro(Scene):
         self.play(Uncreate(intro_text1), Uncreate(intro_text2), Uncreate(intro_text3))
         self.wait(1)
         
-class mod11(Scene):
-    def construct(self):
+# class mod11(Scene):
+#     def construct(self):
         
         mod1_intro = TextMobject("Class 4: Multiplication").scale(1.5)    
     
@@ -57,9 +57,9 @@ class mod11(Scene):
         self.play(Uncreate(circle_group11), Uncreate(circle_group12), Uncreate(face_holder11), Uncreate(mod11))
         self.wait(2)
 
-class mod12(Scene):
+# class mod12(Scene):
 
-    def construct(self):    
+#     def construct(self):    
 
         mod12_intro = TextMobject("Another Example").scale(1.5)
         mod12 = TextMobject("3 x 6 = 6 + 6 + 6 = 18")
@@ -94,14 +94,163 @@ class mod12(Scene):
         self.play(Uncreate(circle_group23), Uncreate(circle_group22), Uncreate(circle_group21), FadeOut(face_holder12), FadeOut(mod12_edge))
         self.wait(2)
 
-class mod21(Scene):
+# class table(Scene):
+#     def construct(self):
+        table_introtext = TextMobject("Let us take a look at the Multiplication Table now!")
+        top_text = TextMobject("Multiplication Table")
+        table = ImageMobject("table.jpg").scale(3.2)
 
-    def construct(self):        
-
-        mod21_intro1 = TextMobject("Let us try to visualize the associative property of")
-        mod21_intro2 = TextMobject("Multiplication")
-        mod21_intro1.next_to(mod21_intro2, UP)
-
-        self.play(Write(mod21_intro1), run_time=1)
-        self.play(Write(mod21_intro2))
+        self.play(Write(table_introtext))
+        self.wait(1)
+        self.play(Uncreate(table_introtext))
+        self.wait(1)
+        self.play(Write(top_text.to_edge(UP)))
+        self.wait(1)
+        self.play(FadeIn(table.next_to(top_text, DOWN)))
         self.wait(2)
+        self.clear()
+
+# class mod21(Scene):
+
+#     def construct(self):        
+
+        mod21_intro1 = TextMobject("Associative property of Multiplication")
+        mod21 = TextMobject("2 x 4 = 4 x 2")
+        mod21_main = TextMobject("2 x 4 = 4 x 2")
+        circle31 = Circle(fill_color = PURPLE, fill_opacity = 1, color = PURPLE, radius=0.35)
+        circle32 = Circle(fill_color = PURPLE, fill_opacity = 1, color = PURPLE, radius=0.35).next_to(circle31, DOWN)
+        circle33 = Circle(fill_color = PURPLE, fill_opacity = 1, color = PURPLE, radius=0.35).next_to(circle32, DOWN)
+        circle34 = Circle(fill_color = PURPLE, fill_opacity = 1, color = PURPLE, radius=0.35).next_to(circle33, DOWN)
+        circle_group31 = Mobject.add(circle31, circle32, circle33, circle34).next_to(mod21_main, LEFT+0.05*DOWN)
+        circle_group32 = circle_group31.copy().next_to(circle_group31, RIGHT)
+        circle_group_initital = Mobject.add(circle_group31, circle_group32)
+        circle_group_final = circle_group_initital.copy().rotate(PI/2).next_to(circle_group_initital, 3*RIGHT)
+        end = TextMobject("End of Module")
+        more = TextMobject("But wait, there's more!")
+
+        self.play(Write(mod21_intro1), run_time=2)
+        self.wait(2)
+        self.play(FadeOut(mod21_intro1), run_time=1)
+        self.wait(1)
+        self.play(FadeInFromDown(mod21.to_edge(UP)))
+        self.wait(1)
+        self.play(FadeInFromDown(mod21_main.scale(1.5).move_to(UP)))
+        self.wait(1)
+        self.play(Write(circle_group_initital), run_time=2)
+        self.wait(1)
+        self.play(Rotate(circle_group_initital, PI/2, axis=OUT))
+        self.wait(2)
+        self.play(ReplacementTransform(circle_group_initital, circle_group_final), run_time=2)
+        self.wait(2)
+        self.clear()
+        self.play(Write(end))
+        self.wait(1)
+        self.play(ReplacementTransform(end, more))
+        self.wait(1)
+        self.clear()
+
+        Graphs = TextMobject("We have Graphs")
+        self.play(FadeIn(Graphs))
+        self.wait(1)
+        self.clear()
+
+
+class Graph(GraphScene):
+    CONFIG = {"x_min": -5,
+              "x_max": 5,
+              "y_min": -5,
+              "y_max": 5,
+              "graph_origin": ORIGIN,
+              "function_color": WHITE,
+              "axes_color": BLUE}
+
+    def construct(self):
+        self.setup_axes(animate=True)
+        func_graph = self.get_graph(self.func_to_graph, self.function_color)
+        graph_lab = self.get_graph_label(func_graph, label = "x^{2}")
+
+        func_graph_2 = self.get_graph(self.func_to_graph_2, self.function_color)
+        graph_lab_2 = self.get_graph_label(func_graph_2, label = "x^{3}")
+
+        vert_line = self.get_vertical_line_to_graph(1,func_graph,color=YELLOW)
+
+        x = self.coords_to_point(1, self.func_to_graph(1))
+        y = self.coords_to_point(0, self.func_to_graph(0))
+        horz_line = Line(x, y, color = YELLOW)
+
+        point = Dot(self.coords_to_point(1, self.func_to_graph(1)))
+
+        self.play(ShowCreation(func_graph), Write(graph_lab), run_time=0.5)
+        self.play(ShowCreation(vert_line))
+        self.play(ShowCreation(horz_line))
+        self.add(point)
+        self.wait(1)
+        self.play(Transform(func_graph, func_graph_2), Transform(graph_lab, graph_lab_2), run_time=0.5)
+        self.wait(2)
+
+        self.clear()
+        
+        eqn = TextMobject("and Equations as well")
+        self.wait(2)
+        self.clear()
+
+# class Equations(Scene):
+#     def construct(self):
+        first_eq = TextMobject("$$J(\\theta) = -\\frac{1}{m} [\\sum_{i=1}^{m} y^{(i)} \\log{h_{\\theta}(x^{(i)})} + (1-y^{(i)}) \\log{(1-h_{\\theta}(x^{(i)}))}] $$")
+        second_eq = ["$J(\\theta_{0}, \\theta_{1})$", "=", "$\\frac{1}{2m}$", "$\\sum\\limits_{i=1}^m$", "(", "$h_{\\theta}(x^{(i)})$", "-", "$y^{(i)}$", "$)^2$"]
+
+        second_mob = TextMobject(*second_eq)
+
+        for i, item in enumerate(second_mob):
+            if (i != 0):
+                item.next_to(second_mob[i-1], RIGHT)
+
+        eq2 = VGroup(*second_mob)
+
+        des1 = TextMobject("Manim can also be used to visualize equations like this")
+        des2 = TextMobject("Or like this")
+
+        second_mob.set_color_by_gradient("#33ccff","#ff00ff")
+
+        des1.shift(2*UP)
+        des2.shift(2*UP)
+
+        self.play(Write(des1))
+        self.play(Write(first_eq))
+        self.play(ReplacementTransform(des1, des2), Transform(first_eq, eq2))
+        self.wait(2)
+
+        for i, item in enumerate(eq2):
+            if (i<2):
+                eq2[i].set_color(color=PURPLE)
+            else:
+                eq2[i].set_color(color="#00FFFF")
+
+        self.add(eq2)
+        self.wait(1)
+        self.play(FadeOutAndShiftDown(eq2), FadeOutAndShiftDown(first_eq), FadeOutAndShiftDown(des2))
+        self.wait(2)
+        self.clear()
+
+        thanks = TextMobject("Thank You!")
+        self.play(Write(thanks))
+        self.wait(2)
+        self.clear()
+# class Logo(Scene):
+#     def construct(self):
+        logo = ImageMobject("i-Help.png").scale(3.2)
+
+        self.play(FadeIn(logo))
+        self.wait(3)
+        self.play(FadeOut(logo))
+        self.wait(1)
+
+
+
+    def func_to_graph(self, x):
+        return (x**2)
+
+    def func_to_graph_2(self, x):
+        return(x**3)
+
+        
